@@ -34,7 +34,7 @@ from walks._version import __version__
 from walks.random import MasterRNG
 from walks.integrator import euler_maruyama
 from walks.simulation import Simulation
-from walks.output import Pickle
+from walks.output import Memory, Pickle
 
 __all__ = ['__version__']
 __all__ += ['Simulation']

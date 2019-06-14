@@ -16,10 +16,11 @@ import numpy as np
 
 from walks.random import MasterRNG
 from walks.integrator import euler_maruyama
-from walks.output import Pickle
+from walks.output import Memory, Pickle
 
 
 OUTPUT = {
+    'memory': Memory,
     'pickle': Pickle,
     'NetCDF': Pickle,
     'VTK': Pickle,
@@ -50,7 +51,7 @@ class Simulation(object):
         T,
         dt,
         nsave=1,
-        output='pickle',
+        output='memory',
         filename='walks.p',
         **field_kwargs
     ):
