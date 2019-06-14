@@ -43,7 +43,7 @@ class TestSimulation(unittest.TestCase):
             self.assertAlmostEqual(sim.pos[d,-1], pos_orig[d,-1] + total_drift[d,-1])
 
     def test_diffusion(self):
-        T = 100
+        T = 1000
         dim = 2
         pos = np.zeros((dim, 10000))
         N = pos.shape[1]
@@ -78,17 +78,16 @@ class TestSimulation(unittest.TestCase):
 
     def test_srf(self):
         D0 = np.array((0., 0.))
-        cov_model = Gaussian(dim=2, var=.1, len_scale=10.)
+        cov_model = Gaussian(dim=2, var=.01, len_scale=10.)
         srf = SRF(cov_model, generator='VectorField', seed=5747387)
-        #x = y = range(100)
 
         sim = Simulation(2, srf, D0, self.T, self.dt)
         sim.initial_condition(self.pos_2d, self.distribution_2d)
-        mean_drift = srf.generator.mean_u * (self.T / self.dt + 1)
+        mean_drift = srf.generator.mean_u * (self.T / self.dt)
         sim()
-        self.assertAlmostEqual(sim.pos[0,0], mean_drift, places=1)
+        self.assertAlmostEqual(sim.pos[0,0], mean_drift, places=0)
         self.assertAlmostEqual(sim.pos[1,1], 0., places=0)
-        self.assertAlmostEqual(sim.pos[0,-1], mean_drift, places=1)
+        self.assertAlmostEqual(sim.pos[0,-1], mean_drift, places=0)
 
 
 if __name__ == '__main__':
