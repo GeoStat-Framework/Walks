@@ -13,6 +13,7 @@ Subpackages
 
 .. autosummary::
     simulation
+    plot
 
 
 Classes
@@ -35,6 +36,7 @@ from walks.random import MasterRNG
 from walks.integrator import euler_maruyama
 from walks.simulation import Simulation
 from walks.output import Memory, Pickle
+from walks import plot
 
 __all__ = ['__version__']
 __all__ += ['Simulation']
