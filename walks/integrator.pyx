@@ -51,5 +51,3 @@ def euler_maruyama(
     for d in range(dim):
         for i in range(N):
             pos[d,i] = pos[d,i] + drift[d,i] * dt + sqrt(2.*D[d] * dt) * jumps[d,i]
-
-    return np.asarray(pos)
