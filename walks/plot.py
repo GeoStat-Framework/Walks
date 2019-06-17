@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Walk module providing plotting functionality.
+Plotting functionality.
 
 .. currentmodule:: walks.plot
 
 The following methods are provided
 
 .. autosummary::
+   walks
    video
 """
 # pylint: disable=C0103
@@ -16,6 +17,8 @@ import numpy as np
 import matplotlib.pyplot as pt
 import matplotlib.animation as animation
 import seaborn as sns
+
+__all__ = ['walks', 'video']
 
 
 def walks(x, y, pos, field=None, fig=None, ax=None):
@@ -32,10 +35,10 @@ def walks(x, y, pos, field=None, fig=None, ax=None):
         the walker positions in time
     field : :any:`numpy.ndarray`, optional
         the velocity field
-    fig : :any:`Figure` or :any:`None`, optional
+    fig : :class:`Figure` or :any:`None`, optional
         Figure to plot the axes on. If `None`, a new one will be created.
         Default: `None`
-    ax : :any:`Axes` or :any:`None`, optional
+    ax : :class:`Axes` or :any:`None`, optional
         Axes to plot on. If `None`, a new one will be added to the figure.
         Default: `None`
     """

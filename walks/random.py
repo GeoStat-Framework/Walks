@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Walks subpackage providing tools for random number generation.
+Tools for random number generation.
 
 .. currentmodule:: walks.random
 

@@ -43,6 +43,21 @@ def euler_maruyama(
     double[:] D,
     double dt
     ):
+    """Integrate the walks with the Euler Maruyama method.
+
+    Parameters
+    ----------
+    pos : :class:`np.ndarray`
+        the positions in all dimensions
+    drift : :class:`np.ndarray`
+        the drift coefficients for all walkers
+    jumps : :class:`np.ndarray`
+        the (random) jump coefficients for all walkers
+    D : :class:`np.ndarray`
+        the diffusion coefficients for all walkers
+    dt : :class:`float`
+        Time step
+    """
     cdef int i, d, dim, N
 
     dim = pos.shape[0]

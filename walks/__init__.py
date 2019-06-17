@@ -13,7 +13,10 @@ Subpackages
 
 .. autosummary::
     simulation
+    output
     plot
+    random
+    integrator
 
 
 Classes
@@ -28,6 +31,56 @@ Class for random walk simulations.
 
 .. autosummary::
    Simulation
+
+
+MasterRNG
+^^^^^^^^^
+
+Class for random number generation.
+
+.. currentmodule:: walks.random
+
+.. autosummary::
+   MasterRNG
+
+
+Output
+^^^^^^
+
+Class for righting the results from the  simulations to file.
+
+.. currentmodule:: walks.output
+
+.. autosummary::
+   Memory
+   Pickle
+   Output
+
+
+Functions
+=========
+
+plot
+^^^^
+
+Methods for plotting the random walk results.
+
+.. currentmodule:: walks.plot
+
+.. autosummary::
+   walks
+   video
+
+
+integrator
+^^^^^^^^^^
+
+Methods for integrating the equations of motion.
+
+.. currentmodule:: walks.integrator
+
+.. autosummary::
+   euler_maruyama
 """
 from __future__ import absolute_import
 
@@ -39,4 +92,4 @@ from walks.output import Memory, Pickle
 from walks import plot
 
 __all__ = ['__version__']
-__all__ += ['Simulation']
+__all__ += ['Simulation', 'output', 'plot', 'MasterRNG']

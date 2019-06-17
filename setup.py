@@ -202,9 +202,8 @@ EXT_MODULES += cythonize(
     # annotate=True
 )
 
-# This is the important part. By setting this compiler directive, cython will
-# embed signature information in docstrings. Sphinx then knows how to extract
-# and use those signatures.
+# By setting this compiler directive, cython will embed signature information
+# in docstrings. Sphinx then knows how to extract and use those signatures.
 # python setup.py build_ext --inplace --> then sphinx build
 for ext_m in EXT_MODULES:
     ext_m.cython_directives = {'embedsignature': True}

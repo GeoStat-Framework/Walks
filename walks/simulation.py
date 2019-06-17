@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Walk module providing a class for random walk simulations.
+Module providing a class for random walk simulations.
 
 .. currentmodule:: walks.simulation
 
@@ -18,6 +18,7 @@ from walks.random import MasterRNG
 from walks.integrator import euler_maruyama
 from walks.output import Memory, Pickle
 
+__all__ = ['Simulation']
 
 OUTPUT = {
     'memory': Memory,
@@ -39,8 +40,8 @@ class Simulation(object):
 
     Parameters
     ----------
-    field : :any:`SRF`
-        A velocity field
+    field :
+        A callable object, which takes a position tuple and returns a tuple
     D : :class:`np.ndarray`
         the diffusion tensor
     T : :class:`float`

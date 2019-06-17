@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Walk module providing output functionality.
+Output functionality.
 
 .. currentmodule:: walks.output
 
 The following classes are provided
 
 .. autosummary::
+   Memory
    Pickle
+   Output
 """
 # pylint: disable=C0103
 from __future__ import division, absolute_import, print_function
@@ -15,16 +17,20 @@ from __future__ import division, absolute_import, print_function
 import pickle
 import numpy as np
 
+__all__ = ['Memory', 'Pickle']
+
 
 class Output(object):
-    def __init__(self, filename):
-        """Save the walks for the afterworld.
+    """Save the walks for the afterworld.
 
-        Parameters
-        ----------
-            filename : :class:`str`
-                the name of the output file
-        """
+    Base class, do not instantiate directly.
+
+    Parameters
+    ----------
+        filename : :class:`str`
+            the name of the output file
+    """
+    def __init__(self, filename):
         self.filename = filename
         self._file = open(self.filename, 'wb')
 
@@ -58,6 +64,13 @@ class Output(object):
         pass
 
 class Memory(object):
+    """Save the walks for the afterworld, well at least temporarily to memory.
+
+    Parameters
+    ----------
+        filename : :class:`str`
+            the name of the output file
+    """
     def __init__(self, filename):
         self.time = []
         self.pos = []
@@ -109,6 +122,13 @@ class Memory(object):
         return time, pos
 
 class Pickle(Output):
+    """Save the walks for the afterworld, to a Python pickle file.
+
+    Parameters
+    ----------
+        filename : :class:`str`
+            the name of the output file
+    """
     def __init__(self, filename):
         super().__init__(filename)
 
