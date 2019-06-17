@@ -99,7 +99,7 @@ def video(x, y, pos, field=None, fps=10, title='Random Walks', filename='random_
 
     if field is not None:
         norm = np.sqrt(field[0,:].T**2 + field[1,:].T**2)
-        ax.streamplot(x, y, field[0,:].T, field[1,:].T, color=norm, linewidth=norm/2)
+        ax.streamplot(x, y, field[0,:].T, field[1,:].T, color=norm, linewidth=norm)
     ax.set_xlabel(r'$x$ / m')
     ax.set_ylabel(r'$y$ / m')
     ax.set_xlim(x[0], x[-1])
