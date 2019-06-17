@@ -28,6 +28,12 @@ class TestSimulation(unittest.TestCase):
         self.jumps_2d = np.array(((.0, .1, -.1), (.1, -.1, .0)))
         self.dt = 1.
 
+    def test_0_walkers(self):
+        sim = Simulation(2, self.srf, self.D_2d, self.T, self.dt)
+        sim()
+        self.assertEqual(sim.output.pos[0][0], None)
+        self.assertEqual(sim.output.pos[0][1], None)
+
     def test_drift(self):
         D0 = np.array((0., 0.))
         T = 3
@@ -52,7 +58,7 @@ class TestSimulation(unittest.TestCase):
         sim.initial_condition(pos)
         sim()
         for d in range(dim):
-            self.assertAlmostEqual(sim.mean_pos[d], 0., places=1)
+            self.assertAlmostEqual(sim.mean_pos[d], 0., places=0)
 
     def test_initial_condition(self):
         sim = Simulation(2, self.srf, self.D_2d, self.T, self.dt)

@@ -68,9 +68,9 @@ class Simulation(object):
         self.T = T
         self.dt = dt
         self.nsave = nsave
-        # will be initialised by self.initial_condition()
-        self.pos = None
-        self.N = None
+        self.pos = np.asarray(([None]*self.dim))[:,np.newaxis]
+        #self.pos = self.pos[:,np.newaxis]
+        self.N = 0
         self.sources = Sources()
         # add one timepoint after max. simulation time for the pops to not through
         # an exception when all sources have been added
@@ -130,9 +130,10 @@ class Simulation(object):
         # write initial conditions to file
         self.output.write_timestep(0., self.pos)
         for timestep, t in enumerate(np.arange(0., self.T, self.dt)):
-            self.jumps[:,:] = [rngs[d].standard_normal(self.N) for d in range(self.dim)]
-            drift = self.field(self.pos, **self.field_kwargs)
-            euler_maruyama(self.pos, drift, self.jumps, self.D, self.dt)
+            if self.N > 0:
+                self.jumps[:,:] = [rngs[d].standard_normal(self.N) for d in range(self.dim)]
+                drift = self.field(self.pos, **self.field_kwargs)
+                euler_maruyama(self.pos, drift, self.jumps, self.D, self.dt)
             if t <= self.sources.t[self.sources.idx] < t + self.dt:
                 self._apply_sources()
             if timestep % self.nsave == 0:
