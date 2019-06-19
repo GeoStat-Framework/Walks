@@ -70,7 +70,6 @@ class Simulation(object):
         self.dt = dt
         self.nsave = nsave
         self.pos = np.asarray(([None]*self.dim))[:,np.newaxis]
-        #self.pos = self.pos[:,np.newaxis]
         self.N = 0
         self.sources = Sources()
         # add one timepoint after max. simulation time for the pops to not through
@@ -120,8 +119,6 @@ class Simulation(object):
         seed : :class:`int`, optional
             RNG seed
         """
-        if self.pos is None:
-            raise RuntimeError('Set the initial conditions before simulating.')
 
         rngs = self._create_rng_streams(self.dim, seed)
         self.jumps = np.empty_like(self.pos)
