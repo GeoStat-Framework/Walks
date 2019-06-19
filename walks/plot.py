@@ -21,9 +21,38 @@ import seaborn as sns
 __all__ = ['walks', 'video']
 
 
-def walks(x, y, pos, field=None, fig=None, ax=None):
+def walks_1d(t, pos, fig=None, ax=None):
     """
-    Plot the random walks and the stream lines, if field is given.
+    Plot the random 1d walks.
+
+    Parameters
+    ----------
+    x : :any:`numpy.ndarray`
+        the x grid
+    t : :any:`numpy.ndarray`
+        the simulation time
+    pos : :any:`numpy.ndarray`
+        the walker positions in time
+    field : :any:`numpy.ndarray`, optional
+        the velocity field
+    fig : :class:`Figure` or :any:`None`, optional
+        Figure to plot the axes on. If `None`, a new one will be created.
+        Default: `None`
+    ax : :class:`Axes` or :any:`None`, optional
+        Axes to plot on. If `None`, a new one will be added to the figure.
+        Default: `None`
+    """
+    print('Plotting walkers.')
+    fig, ax = _get_fig_ax(fig, ax)
+    c = sns.color_palette()
+    ax.plot(t, pos[:,0,:])
+    ax.set_xlabel(r'$t$')
+    ax.set_ylabel(r'$x$')
+    pt.show()
+
+def walks_2d(x, y, pos, field=None, fig=None, ax=None):
+    """
+    Plot the random 2d walks and the stream lines, if field is given.
 
     Parameters
     ----------
@@ -49,8 +78,8 @@ def walks(x, y, pos, field=None, fig=None, ax=None):
     if field is not None:
         norm = np.sqrt(field[0,:].T**2 + field[1,:].T**2)
         ax.streamplot(x, y, field[0,:].T, field[1,:].T, color=norm, linewidth=norm)
-    ax.set_xlabel(r'$x$ / m')
-    ax.set_ylabel(r'$y$ / m')
+    ax.set_xlabel(r'$x$')
+    ax.set_ylabel(r'$y$')
     ax.set_xlim(x[0], x[-1])
     ax.set_ylim(y[0], y[-1])
 

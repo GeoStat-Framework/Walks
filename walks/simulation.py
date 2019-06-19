@@ -101,11 +101,15 @@ class Simulation(object):
         self.N = self.pos.shape[1]
 
     def add_sources(self, times, pos, distribution=1):
+        if not isinstance(times, list):
+            times = [times]
+        if not isinstance(pos, list):
+            pos = [pos]
         self.sources.t = list(times)
         # add one timepoint after max. simulation time for the pops to not through
         # an exception when all sources have been added
         self.sources.t.append([self.T+self.dt])
-        self.sources.pos = np.array(pos)
+        self.sources.pos = np.atleast_1d(pos)
         distribution = np.atleast_1d(distribution)
         if len(distribution) == 1:
             distribution = np.repeat(distribution, len(times))
