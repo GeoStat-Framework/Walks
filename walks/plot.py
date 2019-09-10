@@ -7,7 +7,8 @@ Plotting functionality.
 The following methods are provided
 
 .. autosummary::
-   walks
+   walks_1d
+   walks_2d
    video
 """
 # pylint: disable=C0103
@@ -18,7 +19,7 @@ import matplotlib.pyplot as pt
 import matplotlib.animation as animation
 import seaborn as sns
 
-__all__ = ['walks', 'video']
+__all__ = ["walks_1d", "walks_2d", "video"]
 
 
 def walks_1d(t, pos, fig=None, ax=None):
@@ -42,13 +43,14 @@ def walks_1d(t, pos, fig=None, ax=None):
         Axes to plot on. If `None`, a new one will be added to the figure.
         Default: `None`
     """
-    print('Plotting walkers.')
+    print("Plotting walkers.")
     fig, ax = _get_fig_ax(fig, ax)
     c = sns.color_palette()
-    ax.plot(t, pos[:,0,:])
-    ax.set_xlabel(r'$t$')
-    ax.set_ylabel(r'$x$')
+    ax.plot(t, pos[:, 0, :])
+    ax.set_xlabel(r"$t$")
+    ax.set_ylabel(r"$x$")
     pt.show()
+
 
 def walks_2d(x, y, pos, field=None, fig=None, ax=None):
     """
@@ -71,38 +73,49 @@ def walks_2d(x, y, pos, field=None, fig=None, ax=None):
         Axes to plot on. If `None`, a new one will be added to the figure.
         Default: `None`
     """
-    print('Plotting walkers.')
+    print("Plotting walkers.")
     fig, ax = _get_fig_ax(fig, ax)
     c = sns.color_palette()
 
     if field is not None:
-        norm = np.sqrt(field[0,:].T**2 + field[1,:].T**2)
-        ax.streamplot(x, y, field[0,:].T, field[1,:].T, color=norm, linewidth=norm)
-    ax.set_xlabel(r'$x$')
-    ax.set_ylabel(r'$y$')
+        norm = np.sqrt(field[0, :].T ** 2 + field[1, :].T ** 2)
+        ax.streamplot(
+            x, y, field[0, :].T, field[1, :].T, color=norm, linewidth=norm
+        )
+    ax.set_xlabel(r"$x$")
+    ax.set_ylabel(r"$y$")
     ax.set_xlim(x[0], x[-1])
     ax.set_ylim(y[0], y[-1])
 
     timesteps = pos.shape[0]
 
-    transp = tuple(np.linspace(0., 1., timesteps))
+    transp = tuple(np.linspace(0.0, 1.0, timesteps))
 
-    for i in range(0, timesteps-2):
+    for i in range(0, timesteps - 2):
         ax.plot(
-            pos[i:i+2,0,:],
-            pos[i:i+2,1,:],
-            linewidth=.5,
+            pos[i : i + 2, 0, :],
+            pos[i : i + 2, 1, :],
+            linewidth=0.5,
             color=c[3],
-            alpha=(i+1)/timesteps
+            alpha=(i + 1) / timesteps,
         )
 
     pt.show()
 
     return ax
 
-def video(x, y, pos, field=None, fps=10, title='Random Walks', filename='random_walks.mp4'):
+
+def video(
+    x,
+    y,
+    pos,
+    field=None,
+    fps=10,
+    title="Random Walks",
+    filename="random_walks.mp4",
+):
     """Create a video of the  2d walkers.
-    
+
     Parameters
     ----------
     x : :any:`numpy.ndarray`
@@ -120,35 +133,48 @@ def video(x, y, pos, field=None, fps=10, title='Random Walks', filename='random_
     filename : :class:`str`, optional
         filename of the video
     """
-    print('Creating video...')
+    print("Creating video...")
     c = sns.color_palette()
-    ffmpeg_writer = animation.writers['ffmpeg']
-    metadata = dict(title=title, artist='Ministry of Random Walks')
+    ffmpeg_writer = animation.writers["ffmpeg"]
+    metadata = dict(title=title, artist="Ministry of Random Walks")
     writer = ffmpeg_writer(fps=fps, metadata=metadata)
 
     fig = pt.figure()
     ax = fig.add_subplot(111)
 
     if field is not None:
-        norm = np.sqrt(field[0,:].T**2 + field[1,:].T**2)
-        ax.streamplot(x, y, field[0,:].T, field[1,:].T, color=norm, linewidth=norm)
-    ax.set_xlabel(r'$x$ / m')
-    ax.set_ylabel(r'$y$ / m')
+        norm = np.sqrt(field[0, :].T ** 2 + field[1, :].T ** 2)
+        ax.streamplot(
+            x, y, field[0, :].T, field[1, :].T, color=norm, linewidth=norm
+        )
+    ax.set_xlabel(r"$x$ / m")
+    ax.set_ylabel(r"$y$ / m")
     ax.set_xlim(x[0], x[-1])
     ax.set_ylim(y[0], y[-1])
 
     with writer.saving(fig, filename, dpi=150):
         frames = pos.shape[0]
         for t in range(frames):
-            print('\tframe {:3d} / {}\r'.format(t+1, frames), end='', flush=True)
-            lines = ax.plot(pos[0:t,0,:], pos[0:t,1,:], color=c[3], alpha=1., linewidth=0.3)
+            print(
+                "\tframe {:3d} / {}\r".format(t + 1, frames),
+                end="",
+                flush=True,
+            )
+            lines = ax.plot(
+                pos[0:t, 0, :],
+                pos[0:t, 1, :],
+                color=c[3],
+                alpha=1.0,
+                linewidth=0.3,
+            )
             writer.grab_frame()
             [l.remove() for l in lines]
             del lines
 
-        print('\tframe {0:3d} / {0}'.format(frames), end='', flush=True)
+        print("\tframe {0:3d} / {0}".format(frames), end="", flush=True)
 
-def _get_fig_ax(fig, ax, ax_name='rectilinear'):  # pragma: no cover
+
+def _get_fig_ax(fig, ax, ax_name="rectilinear"):  # pragma: no cover
     if fig is None and ax is None:
         fig = pt.figure()
         ax = fig.add_subplot(111, projection=ax_name)

@@ -13,7 +13,7 @@ from __future__ import division, absolute_import, print_function
 
 import numpy.random as rand
 
-__all__ = ['MasterRNG']
+__all__ = ["MasterRNG"]
 
 
 class MasterRNG(object):
@@ -26,6 +26,7 @@ class MasterRNG(object):
         a random seed is used. Default: ``None``
 
     """
+
     def __init__(self, seed):
         self._seed = seed
         self._master_rng_fct = rand.RandomState(seed)

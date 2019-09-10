@@ -17,7 +17,7 @@ from __future__ import division, absolute_import, print_function
 import pickle
 import numpy as np
 
-__all__ = ['Memory', 'Pickle']
+__all__ = ["Memory", "Pickle"]
 
 
 class Output(object):
@@ -30,9 +30,10 @@ class Output(object):
         filename : :class:`str`
             the name of the output file
     """
+
     def __init__(self, filename):
         self.filename = filename
-        self._file = open(self.filename, 'wb')
+        self._file = open(self.filename, "wb")
 
     def __del__(self):
         self._file.close()
@@ -63,6 +64,7 @@ class Output(object):
         """
         pass
 
+
 class Memory(object):
     """Save the walks for the afterworld, well at least temporarily to memory.
 
@@ -71,6 +73,7 @@ class Memory(object):
         filename : :class:`str`
             the name of the output file
     """
+
     def __init__(self, filename):
         self.time = []
         self.pos = []
@@ -115,11 +118,12 @@ class Memory(object):
 
         for i in range(len(self.pos)):
             n = self.pos[i].shape[1]
-            pos[i,:,0:n] = self.pos[i]
+            pos[i, :, 0:n] = self.pos[i]
 
         pos = np.ma.masked_invalid(pos)
 
         return time, pos
+
 
 class Pickle(Output):
     """Save the walks for the afterworld, to a Python pickle file.
@@ -129,6 +133,7 @@ class Pickle(Output):
         filename : :class:`str`
             the name of the output file
     """
+
     def __init__(self, filename):
         super().__init__(filename)
 
@@ -148,7 +153,7 @@ class Pickle(Output):
                 Positions of the particles, given as a tuple of
                 positions
         """
-        d = {'time': time, 'pos': pos, 'N': pos.shape[1]}
+        d = {"time": time, "pos": pos, "N": pos.shape[1]}
         pickle.dump(d, self._file)
 
     def load(self):
@@ -162,16 +167,16 @@ class Pickle(Output):
             Position of walkers
         """
         self._file.close()
-        self._file = open(self.filename, 'rb')
+        self._file = open(self.filename, "rb")
         time = []
         pos = []
         N = []
         while True:
             try:
                 d = pickle.load(self._file)
-                time.append(d['time'])
-                pos.append(d['pos'])
-                N.append(d['N'])
+                time.append(d["time"])
+                pos.append(d["pos"])
+                N.append(d["N"])
             except EOFError:
                 break
         time = np.array(time)
@@ -187,7 +192,7 @@ class Pickle(Output):
 
         for i in range(len(self.pos)):
             n = self.pos[i].shape[1]
-            pos[i,:,0:n] = self.pos[i]
+            pos[i, :, 0:n] = self.pos[i]
 
         pos = np.ma.masked_invalid(pos)
 
