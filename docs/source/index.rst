@@ -2,6 +2,9 @@
 Ministry of Random Walks
 ========================
 
+.. image:: https://raw.githubusercontent.com/GeoStat-Framework/Walks/master/docs/source/pics/walks.png
+   :width: 150px
+   :align: center
 
 Installation
 ============
