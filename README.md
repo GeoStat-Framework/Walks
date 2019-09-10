@@ -2,6 +2,10 @@
 
 [![Documentation Status](https://readthedocs.org/projects/docs/badge/?version=latest)](https://geostat-framework.readthedocs.io/projects/walks/en/latest/)
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/GeoStat-Framework/Walks/master/docs/source/pics/walks.png" alt="Walks-LOGO" width="251px"/>
+</p>
+
 ## Purpose
 
 <img align="right" width="450" src="https://raw.githubusercontent.com/GeoStat-Framework/Walks/master/docs/source/pics/random_walks.gif" alt="">
