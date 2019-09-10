@@ -128,20 +128,19 @@ htmlhelp_basename = "MinistryofRandomWalksdoc"
 
 
 # -- Options for LaTeX output ---------------------------------------------
+latex_logo = "pics/walks_150.png"
 
+# latex_show_urls = 'footnote'
+# http://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-latex-output
 latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
+    "preamble": r"""
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{2}
+\pagestyle{fancy}
+""",
+    "pointsize": "10pt",
+    "papersize": "a4paper",
+    "fncychap": "\\usepackage[Glenn]{fncychap}",
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
